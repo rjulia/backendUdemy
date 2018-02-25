@@ -1,0 +1,16 @@
+{
+  "name": "backend-serve",
+  "version": "1.0.0",
+  "description": "Servidor back-end angular avanazado",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ramon Julia",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongoose": "^5.0.7"
+  }
+}
