@@ -1,0 +1,1 @@
+module.exports.SEED = '@esto-genera-una-semilla@unicaparami';

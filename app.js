@@ -3,9 +3,20 @@
 
 //Requires : impotacios de librerias
 var express = require('express');
-
 // referenciamos mongoose
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser')
+
+// inicializar variables
+var app = express()
+
+// BODYPARSE configuracion, https://github.com/expressjs/body-parser, esto para tratar rapidamento los datos JSON
+// Son peticiones que se ejcutan siempre, cuando pase por aqui, si viene algo en el body dela peticion, lo conviert e a JSON para que lo podamos tratar
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+// parse application/json
+app.use(bodyParser.json())
 
 //conexiones a base de datos que parte de mongose
 mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res)=>{
@@ -16,21 +27,18 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res)=>
 
 })
 
+//Importar rutas
+var appRoutes = require('./routes/app.route')
+var userRoutes = require('./routes/usuario.route')
+var loginRoutes = require('./routes/login.route')
+
+//Rutas
+//primero creamos un midelwear
+app.use('/usuario', userRoutes)
+app.use('/login', loginRoutes)
+app.use('/', appRoutes)
 
 
-// inicializar variables
-var app = express()
-
-//rutas primero la variable, luego la orden que queremos de la peticioen entre GET, POST, PUT, DELETE, 
-//Get recibe tres paramtros request(solicitud), la respuesta y la orden Next para que siga adealante con la siguiente llamada. o funcion
-//los next se utiliza sobretodo con los midelweares
-
-app.get('/', (req, res, next) => {
-    res.status(200).json({
-        ok: true,
-        mensaje: 'Peticion realizada correctamentetttt'
-    })
-})
 
 
 //Escuchar peticiones
