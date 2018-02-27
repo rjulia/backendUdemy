@@ -1,13 +1,13 @@
-var express = require('express');
+const express = require('express');
 //para encriptar la contraseña, 
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 //Para crear los token unicons 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
-var SEED = require('../config/config').SEED
+const SEED = require('../config/config').SEED
 
 
-var app = express();
+const app = express();
 
 //debemos importar lo primero nuestro modelo de usuario
 var Usuario = require('../models/usuario.model');

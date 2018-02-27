@@ -24,6 +24,11 @@ https://github.com/expressjs/body-parser
 Para encriptar la cotraseña de uan sola via. Inyectarlo allli donde bvaya a ser necesario, en nuentro caso en route usuario.
 https://github.com/dcodeIO/bcrypt.js
 
-##JWT
+## JWT
 Para generar los token unicos al lhacer peticiones de login
 https://github.com/auth0/node-jsonwebtoken
+
+## Express fileupload
+
+Libreria para subir archivos con express, tipo jpg, pdf, etc
+https://github.com/richardgirges/express-fileupload 

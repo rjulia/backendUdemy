@@ -27,16 +27,33 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB', (err, res)=>
 
 })
 
+//services index config:: para tener acceso desd al ruta a la carpta de los archviso, Opcional, 
+// var serveIndex = require('serve-index');
+// app.use(express.static(__dirname + '/'))
+// app.use('/uploads', serveIndex(__dirname + '/uploads'));
+
 //Importar rutas
-var appRoutes = require('./routes/app.route')
-var userRoutes = require('./routes/usuario.route')
-var loginRoutes = require('./routes/login.route')
+var appRoutes = require('./routes/app.route');
+var userRoutes = require('./routes/usuario.route');
+var loginRoutes = require('./routes/login.route');
+var hospitalRoutes = require('./routes/hospital.route');
+var medicoRoutes = require('./routes/medico.route');
+var busquedaRoutes = require('./routes/busqueda.route');
+var uploadRoutes = require('./routes/upload.route');
+var imagenesRoutes = require('./routes/imagenes.route');
+
+
 
 //Rutas
 //primero creamos un midelwear
-app.use('/usuario', userRoutes)
-app.use('/login', loginRoutes)
-app.use('/', appRoutes)
+app.use('/usuario', userRoutes);
+app.use('/login', loginRoutes);
+app.use('/hospital', hospitalRoutes);
+app.use('/medico', medicoRoutes);
+app.use('/busqueda', busquedaRoutes);
+app.use('/upload', uploadRoutes);
+app.use('/img', imagenesRoutes)
+app.use('/', appRoutes);
 
 
 

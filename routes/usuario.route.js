@@ -1,17 +1,17 @@
-var express = require('express');
+const express = require('express');
 //para encriptar la contraseña, 
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 //Para crear los token unicons 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 //importamos la funcion que verifica el token
-var mdAuth = require('../middlewares/auth.middleware');
+const mdAuth = require('../middlewares/auth.middleware');
 
 //arracamaos express y con ello toso sus metodos, get, put, delete, etc
-var app = express();
+const app = express();
 
 //debemos importar lo primero nuestro modelo de usuario
-var Usuario = require('../models/usuario.model');
+const Usuario = require('../models/usuario.model');
 
 
 // ==========================
@@ -21,7 +21,15 @@ app.get('/', (req, res, next) => {
     //debido a mongoose, ya tenemos todo los metodos necesario para realizar una busqueda en nuenstra base de datod de MONGO DB en este caso es un GET asi qeu realizamos un FIND y le pasamos un objeto. y una funcion de callback que recibe dos parametros
 
     //para enla respuetsa no devolder el password aqui pasamos como segundo parametro la lista de los parametros que queremos devolver en este caso el ejemplo es : 'nombre email img role', luego la segunda funcion el exec para ya hacer la peticion
+    //Esto para 
+    var desde = req.query.desde || 0;
+    desde = Number(desde);
+    
     Usuario.find({}, 'nombre email img role')
+    //SKIP (mongose)sirvedesde donde empieza a contar
+    .skip(desde)
+    //LIMIT (mongose)sirve para la cantidad total de la cual
+    .limit(5)
     .exec(
         (err, usuarios) => {
             if (err) {
@@ -32,10 +40,23 @@ app.get('/', (req, res, next) => {
                     errors: err
                 });
             }
-            res.status(200).json({
-                ok: true,
-                usuarios: usuarios
-            });
+            //COUNT (mongose)sirve para contar la cantida del registros, entre lñas llaves{} se podria pasar parametros
+
+            Usuario.count({}, (err, conteo)=>{
+                if (err) {
+                    //error BBDD
+                    return res.status(400).json({
+                        ok: false,
+                        mensaje: 'ERROR de contar Usuariozs',
+                        errors: err
+                    });
+                }
+                res.status(200).json({
+                    ok: true,
+                    usuarios: usuarios,
+                    total: conteo
+                });
+            })
         }
     );
 });
