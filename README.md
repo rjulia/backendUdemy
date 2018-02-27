@@ -29,6 +29,8 @@ Para generar los token unicos al lhacer peticiones de login
 https://github.com/auth0/node-jsonwebtoken
 
 ## Express fileupload
-
 Libreria para subir archivos con express, tipo jpg, pdf, etc
 https://github.com/richardgirges/express-fileupload 
+
+## libreria de autentificacion de GOOGLE
+npm install google-auth-library --save
